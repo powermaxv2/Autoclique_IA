@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoclique-ia"
+dynamic = ["version"]
+description = "Auto-clicker et enregistreur/lecteur de macros (souris, clavier, reconnaissance d'image)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pynput>=1.7.6",
+    "mss>=9.0",
+    "numpy>=1.21",
+    "Pillow>=9.0",
+    "sv-ttk>=2.5",
+]
+
+[project.optional-dependencies]
+opencv = ["opencv-python-headless>=4.5"]
+dev = ["pytest>=7", "pyinstaller>=6.0"]
+
+[project.scripts]
+autoclique = "autoclique.cli:main"
+
+[project.gui-scripts]
+autoclique-gui = "autoclique.app:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "autoclique.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["autoclique*"]
+
+[tool.setuptools.package-data]
+autoclique = ["assets/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
